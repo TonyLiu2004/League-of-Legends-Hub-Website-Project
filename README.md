@@ -1,48 +1,16 @@
-# Web Development Project 7 - Amongus Crewmate Creator
+# Web Development Final Project - League of Legends Discussion Hub
 
-Submitted by: Tony Liu
+By Tony Liu
 
-This web app: Creates crewmates that you can edit and view information about.
-
-Time spent: 6 hours spent in total
-
-## Required Features
-
-The following **required** functionality is completed:
-
-- [x] **A create form allows users to add new crewmates**
-- [x] **Users can name the crewmate and set the crewmate's attributes by clicking on one of several values**
-- [x] **The site displays a summary page of all the user's added crewmates**
-- [x] **A previously created crewmate can be updated from the crewmate list**
-- [x] **A previously created crewmate can be deleted from the crewmate list**
-- [x] **Each crewmate has a direct, unique link to an info page about them**
-
-The following **optional** features are implemented:
-
-- [ ] A crewmate can be given a category upon creation which restricts their attributes
-- [ ] The site displays summary statistics about a user's crew on their crew page 
-- [ ] The site displays a custom "success" metric about a user's crew which changes the look of the crewmate list
-
-The following **additional** features are implemented:
-
-* [ ] List anything else that you added to improve the site's functionality!
+This web app is a disscussion hub where you can talk about all things League of Legends.
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories: https://imgur.com/a/ZvNNDk2
+Walkthrough of implemented features: 
 
-<img src='https://i.imgur.com/x13QlR0.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-<!-- Replace this with whatever GIF tool you used! -->
 GIF created with Windows Xbox game bar and Imgur
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
-
-## Notes
-
-Describe any challenges encountered while building the app.
 
 ## License
 
