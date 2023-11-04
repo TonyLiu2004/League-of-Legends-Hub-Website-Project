@@ -7,7 +7,7 @@ import CreateCard from './assets/pages/CreateCard'
 import EditCard from './assets/pages/EditCard'
 import ReadCard from './assets/pages/ReadCard'
 import Home from './assets/pages/Home.jsx'
-import Info from './assets/pages/info'
+import Info from './assets/pages/Info.jsx'
 
 function App() {
   const [cards, setCards] = useState([]);

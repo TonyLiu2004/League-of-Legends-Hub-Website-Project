@@ -20,7 +20,7 @@ const ReadCard = (props) =>{
                 {
                     posts && posts.length > 0 ?
                         posts.slice().reverse().map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={posts.upvotes}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
                         ))
                     : <h2>{'No posts yet 😞'}</h2>
                 }

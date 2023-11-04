@@ -1,12 +1,74 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import { supabase } from '../../client.jsx';
 import './Card.css'
 
 const Card = (props) => {
     const [upvotes, setUpvotes] = useState(0);
+    const [upvoted, setUpvoted] = useState(false);
+    const [timeStamp, setTimeStamp] = useState(0);
+
+    const fetchUpvotes = async () => {
+        const { data, error } = await supabase
+          .from('LOL Posts')
+          .select('upvotes')
+          .eq('id', props.id);
+    
+        if (error) {
+          console.log(error);
+        } else if (data && data.length > 0) {
+          const newUpvotes = data[0].upvotes;
+          setUpvotes(newUpvotes);
+        }
+    };
+
     useEffect(() => { 
         if(props.upvotes !== undefined) setUpvotes(props.upvotes);
-    }, [])
+        function formatRelativeTime(timestamp) {
+            const now = new Date();
+            const time = new Date(timestamp);
+        
+            const timeDifference = now - time;
+            const seconds = Math.floor(timeDifference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+        
+            if (hours >= 24) {
+                return `${Math.floor(hours / 24)} days ago`;
+            } else if (hours >= 1) {
+                return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+            } else if (minutes >= 1) {
+                return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+            } else {
+                return `${seconds} ${seconds === 1 ? 'second' : 'seconds'} ago`;
+            }
+        }
+        fetchUpvotes();
+        setTimeStamp(formatRelativeTime(props.created_at));
+    }, [props.upvotes])
+
+    const upvotePost = async (event) => {
+        event.preventDefault();
+        let i = upvotes;
+        if(!upvoted) {
+            i++;
+        }else{
+            i--;
+        }
+
+        const { error } = await supabase
+        .from('LOL Posts')
+        .update({upvotes: i})
+        .eq('id', props.id)
+
+        if (error) {
+            console.log(error);
+        }else{
+            setUpvotes(i);
+            setUpvoted(!upvoted);
+        }
+    }
+
     return (
         <div className="Card">
             <Link
@@ -15,22 +77,29 @@ const Card = (props) => {
                 >
             <div className = "container">
                 <div>
-                    <h3 className="post-title">Title: {props.title}</h3>
+                    <div className = "post-top">
+                        <h3 className="post-title">Title: {props.title}</h3>
+                        <p className ="timestamp">{timeStamp}</p>
+                    </div>
                     <div className="description-container">
                         <h3 className="post-description">Description: {props.description}</h3>
-                    </div>
-                    <div className = "post-bottom">
-                        <h3 className="upvotes">{upvotes} upvotes</h3>
-                        <Link className = "link" to={`/edit/${props.id}`}>Edit Post</Link>  
                     </div>
                 </div>
                 <div>
                     {props.image !== "" && (
-                        <img src={props.image} alt="Your Image" />
+                        <img className = "post-image" src={props.image} alt="Your Image" />
                     )}
                 </div>
             </div>
             </Link>
+            <div className = "post-bottom">
+                <button onClick = {(event) => {
+                    upvotePost(event);
+                    setUpvoted(!upvoted);
+                }}>🔼</button>
+                <h3 className="upvotes">{upvotes} upvotes</h3>
+                <Link className = "link" to={`/edit/${props.id}`}>Edit Post</Link>  
+            </div>
         </div>
     );
 };

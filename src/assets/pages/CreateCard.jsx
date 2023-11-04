@@ -41,6 +41,10 @@ const CreateCard = () => {
                 <input type="text" id="speed" name="description" value ={card.description} onChange={handleChange}/><br />
                 <br/>
 
+                <label>Image (optional)</label><br/>
+                <input type = "text" id="image" name = "image" value = {card.image} onChange = {handleChange}/><br/>
+                <br/>
+
                 <input style = {{fontSize: "15px" }} type="submit" value="Create Post" onClick={createPost} />
             </form>
         </div>
