@@ -2,17 +2,12 @@
 .Card {
     backdrop-filter: blur(2px);
     border: 1px solid rgba(187, 187, 187, 0.497);
-    border-radius: 20px;
+    border-radius: 10px;
     padding-right: 10px;
     background-color: rgba(100, 100, 100, 0.5);
     margin-left:60px;
     margin-right:60px;
     margin-bottom: 15px;
-}
-
-h3{
-    text-align: left;  
-    max-width:400px;
 }
 
 .link{
@@ -27,6 +22,7 @@ h3{
 
 .container{
     padding-left:20px;
+    display:flex;
 }
 
 .post-image{
@@ -38,4 +34,28 @@ h3{
     display:flex;
     margin-right: 10px;
     align-items: center;
+}
+
+.post-title{
+    color:white;
+    font-size:25px;
+    text-align: left;
+    margin-bottom:10px;
+}
+
+.post-description{
+    margin-top:0px;
+    font-size:18px;
+    text-align: left;
+}
+
+.description-container{
+    max-width: 99%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* Limit to 8 lines */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.4; /* Adjust as needed for line spacing */
 }

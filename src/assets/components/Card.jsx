@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import './Card.css'
 
 const Card = (props) => {
+    const [upvotes, setUpvotes] = useState(0);
+    useEffect(() => { 
+        if(props.upvotes !== undefined) setUpvotes(props.upvotes);
+    }, [])
     return (
         <div className="Card">
             <Link
@@ -10,11 +14,20 @@ const Card = (props) => {
                 key={props.id}
                 >
             <div className = "container">
-                <h3 className="title">Title: {props.title}</h3>
-                <h3 className="description">Description: {props.description}</h3>
-                <div className = "post-bottom">
-                    <h3 className="upvotes">upvotes: {props.upvotes}</h3>
-                    <Link className = "link" to={`/edit/${props.id}`}>Edit Post</Link>  
+                <div>
+                    <h3 className="post-title">Title: {props.title}</h3>
+                    <div className="description-container">
+                        <h3 className="post-description">Description: {props.description}</h3>
+                    </div>
+                    <div className = "post-bottom">
+                        <h3 className="upvotes">{upvotes} upvotes</h3>
+                        <Link className = "link" to={`/edit/${props.id}`}>Edit Post</Link>  
+                    </div>
+                </div>
+                <div>
+                    {props.image !== "" && (
+                        <img src={props.image} alt="Your Image" />
+                    )}
                 </div>
             </div>
             </Link>

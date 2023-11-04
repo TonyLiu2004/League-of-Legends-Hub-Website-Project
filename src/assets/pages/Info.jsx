@@ -15,8 +15,23 @@ const Info = ({ data }) => {
 
     return (
         <div>
-            <h3>{desc}</h3>
-            <Link className = "link" to={`/edit/${info.id}`}>Edit Post</Link>
+            <div className = "container">
+                <div>
+                    <h3 className="post-title">Title: {info.title}</h3>
+                    <div className="description-container">
+                        <h3 className="post-description">DESCRIPTION: {info.description}</h3>
+                    </div>
+                    <div className = "post-bottom">
+                        <h3 className="upvotes">{info.upvotes} upvotes</h3>
+                        <Link className = "link" to={`/edit/${info.id}`}>Edit Post</Link>
+                    </div>
+                </div>
+                <div>
+                    {info.image !== "" && (
+                        <img src={info.image} alt="Your Image" />
+                    )}
+                </div>
+            </div>
         </div>
     );
 }
