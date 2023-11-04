@@ -1,0 +1,67 @@
+import React, {useState, useEffect} from 'react';
+import { supabase } from '../../client.jsx';
+import { useParams } from 'react-router-dom';
+
+const EditCard = ({data}) => {
+    const {id} = useParams();
+    const [card, setCard] = useState({id: null, title: "", description: "", image: "", upvotes: 0});
+
+    useEffect(() => {
+        const result = data.filter(item => String(item.id) === id)[0];
+        setCard({title: result.title, description: result.description, image: result.image, upvotes: result.upvotes});
+    }, [data, id]);
+
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setCard( (prev) => {
+            return {
+                ...prev,
+                [name]:value,
+            }
+        })
+    }
+
+    const updateCard = async (event) => {
+        event.preventDefault();
+        const { error } = await supabase
+        .from('LOL Posts')
+        .update({title: card.title, description: card.description, image: card.image, upvotes: card.upvotes})
+        .eq('id', id)
+
+        if (error) {
+            console.log(error);
+        }
+
+        window.location = "/";
+    }
+
+    const deletePost = async (event) => {
+        event.preventDefault();
+    
+        await supabase
+        .from('LOL Posts')
+        .delete()
+        .eq('id', id); 
+    
+        window.location = "http://localhost:5173/";
+    }
+
+    return(
+        <div>
+            <form>
+                <label>Title</label> <br />
+                <input type="text" id="title" name="title" value={card.title} onChange={handleChange}/><br />
+                <br/>
+
+                <label>Description</label><br />
+                <input type="text" id="description" name="description" value={card.description} onChange={handleChange}/><br />
+                <br/>
+                
+                <input style = {{fontSize:"15px", backgroundColor:"grey", padding:"10px", borderRadius:"10px"}} type="submit" value="Update Post" onClick={updateCard}/>
+                <button className="deleteButton" onClick={deletePost}>Delete Post</button>
+            </form>
+        </div>
+    )
+}
+
+export default EditCard;

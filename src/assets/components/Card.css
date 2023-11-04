@@ -1,0 +1,41 @@
+
+.Card {
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(187, 187, 187, 0.497);
+    border-radius: 20px;
+    padding-right: 10px;
+    background-color: rgba(100, 100, 100, 0.5);
+    margin-left:60px;
+    margin-right:60px;
+    margin-bottom: 15px;
+}
+
+h3{
+    text-align: left;  
+    max-width:400px;
+}
+
+.link{
+    text-align: center;
+    color:white;
+    border:2px solid rgb(206, 206, 206);
+    padding:3px;
+    border-radius: 4px;
+    background-color:rgb(71, 71, 71);
+    margin-left: 20px;
+}
+
+.container{
+    padding-left:20px;
+}
+
+.post-image{
+    width: 170px;
+    height: 170px;
+}
+
+.post-bottom{
+    display:flex;
+    margin-right: 10px;
+    align-items: center;
+}
