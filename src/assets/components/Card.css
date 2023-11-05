@@ -28,7 +28,7 @@
 
 .post-image{
     max-width: 500px;
-    max-height: 300px;
+    max-height: 320px;
     margin-left:50px;
     padding-top:30px;
 }
@@ -67,7 +67,7 @@
     max-width: 99%;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 8;
+    -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     white-space: normal;

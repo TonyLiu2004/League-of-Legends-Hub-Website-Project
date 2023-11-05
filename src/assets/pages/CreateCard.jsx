@@ -37,8 +37,8 @@ const CreateCard = () => {
                 <input type="text" id="name" name="title" value ={card.title} onChange={handleChange}/><br />
                 <br/>
 
-                <label >Description</label><br />
-                <input type="text" id="speed" name="description" value ={card.description} onChange={handleChange}/><br />
+                <label>Description</label><br />
+                <textarea type="text" id="description" name="description" value={card.description} onChange={handleChange} rows="4" cols = "20"/><br />
                 <br/>
 
                 <label>Image (optional)</label><br/>

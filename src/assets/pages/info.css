@@ -2,7 +2,8 @@
     backdrop-filter: blur(2px);
     border: 1px solid rgba(187, 187, 187, 0.497);
     border-radius: 10px;
-    padding-right: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
     background-color: rgba(100, 100, 100, 0.5);
     margin-left:60px;
     margin-right:60px;
@@ -24,4 +25,8 @@
 .info-description{
     margin-left:15px;
     text-align: left;
+}
+
+.info-horizontal-line{
+    border-color:rgb(170, 156, 156, 0.5);
 }
