@@ -55,6 +55,26 @@ const Info = ({ data }) => {
         }
     };
 
+    function formatRelativeTime(timestamp) {
+        const now = new Date();
+        const time = new Date(timestamp);
+    
+        const timeDifference = now - time;
+        const seconds = Math.floor(timeDifference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+    
+        if (hours >= 24) {
+            return `${Math.floor(hours / 24)} days ago`;
+        } else if (hours >= 1) {
+            return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+        } else if (minutes >= 1) {
+            return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+        } else {
+            return `${seconds} ${seconds === 1 ? 'second' : 'seconds'} ago`;
+        }
+    }
+
     return (
         <div>
             <h3 className="info-title">Title: {info.title}</h3>
@@ -79,7 +99,17 @@ const Info = ({ data }) => {
                 </div>
 
                 <div className = "comment-section">
-
+                    {
+                        displayComments.slice().reverse().map((c, index) => (
+                            <div key={index} className = "each-comment">
+                                <div className = "each-comment-top">
+                                    <p>{c.name}</p>
+                                    <p className = "comment-timestamp">{formatRelativeTime(c.timestamp)}</p>
+                                </div>
+                                <p className = "comment-text">{c.comment}</p>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>
