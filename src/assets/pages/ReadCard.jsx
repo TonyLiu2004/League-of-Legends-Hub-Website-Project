@@ -31,6 +31,7 @@ const ReadCard = (props) =>{
         setSortOrder(e.target.value);
         console.log(sortOrder);
     }
+    
     return (
         <div>
             <div className = "title-bar">
@@ -50,7 +51,7 @@ const ReadCard = (props) =>{
             </div>
 
             <div className="readCards">
-                { searched ?
+                {searched ?
                     sortOrder == "time" ?
                         Object.values(filtered).slice().reverse().map((post) => (
                             <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
@@ -66,8 +67,20 @@ const ReadCard = (props) =>{
                         .map((post) => (
                             <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
                         ))
-
-                 :  posts && posts.length > 0 ?
+                 
+                : sortOrder == "upvotes-desc" ?   
+                    posts.slice().reverse()
+                        .sort((a, b) => b.upvotes - a.upvotes)
+                        .map((post) => (
+                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                    ))   
+                : sortOrder == "upvotes-asc" ?   
+                    posts.slice().reverse()
+                        .sort((a, b) => a.upvotes - b.upvotes)
+                        .map((post) => (
+                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                    ))            
+                :  posts && posts.length > 0 ?
                         posts.slice().reverse().map((post) => (
                             <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
                         ))

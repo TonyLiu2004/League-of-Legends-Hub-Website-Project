@@ -10,7 +10,8 @@ const Info = ({ data }) => {
     const [upvotes, setUpvotes] = useState(0);
     const [userComment, setUserComment] = useState('');
     const [displayComments, setDisplayComments] = useState(info.comments);
-    
+
+    console.log(info);
     const fetchUpvotes = async () => {
         const { data, error } = await supabase
           .from('LOL Posts')
@@ -100,7 +101,9 @@ const Info = ({ data }) => {
 
                 <div className = "comment-section">
                     {
-                        displayComments.slice().reverse().map((c, index) => (
+                        info.comments == null ?
+                            <p>No Comments</p>
+                        : displayComments.slice().reverse().map((c, index) => (
                             <div key={index} className = "each-comment">
                                 <div className = "each-comment-top">
                                     <p>{c.name}</p>
