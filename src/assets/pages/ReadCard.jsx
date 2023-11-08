@@ -8,6 +8,7 @@ const ReadCard = (props) =>{
     const [searchText, setSearchText] = useState("");
     const [searched, setSearched] = useState(false);
     const [filtered, setFiltered] = useState(null);
+    const [sortOrder, setSortOrder] = useState("time");
     useEffect(() => {
         setPosts(props.data);
         setFiltered(props.data);
@@ -25,6 +26,11 @@ const ReadCard = (props) =>{
             setFiltered(f);
         }
     }
+
+    const handleSortOrderChange = (e) =>{
+        setSortOrder(e.target.value);
+        console.log(sortOrder);
+    }
     return (
         <div>
             <div className = "title-bar">
@@ -33,15 +39,34 @@ const ReadCard = (props) =>{
             </div>
 
             <div className = "searchBar">
+                <select style = {{marginRight:"5px  "}} id="sortOrderSelect" name="sortOrder" value={sortOrder} onChange = {(handleSortOrderChange)}>
+                    <option value = "time">Time</option>
+                    <option value = "upvotes-asc">Upvotes Ascending</option>
+                    <option value = "upvotes-desc">Upvotes Descending</option>
+                </select>
+
                 <input id = "searchInput" type="text" onChange={(inputString) => setSearchText(inputString.target.value)}/><br />
                 <button id = "searchButton" onClick = {handleSearch}>Search</button>
             </div>
 
             <div className="readCards">
                 { searched ?
-                    Object.values(filtered).map((post) => (
-                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
-                    ))
+                    sortOrder == "time" ?
+                        Object.values(filtered).slice().reverse().map((post) => (
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                        ))
+                    :sortOrder == "upvotes-desc" ?
+                        Object.values(filtered)
+                        .sort((a, b) => b.upvotes - a.upvotes)
+                        .map((post) => (
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                        ))
+                    :   Object.values(filtered)
+                        .sort((a, b) => a.upvotes - b.upvotes)
+                        .map((post) => (
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                        ))
+
                  :  posts && posts.length > 0 ?
                         posts.slice().reverse().map((post) => (
                             <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
