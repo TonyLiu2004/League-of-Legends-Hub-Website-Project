@@ -32,6 +32,7 @@ const ReadCard = (props) =>{
         console.log(sortOrder);
     }
     
+    //SORT BY TIME NOT WORKING!!!!!!!
     return (
         <div>
             <div className = "title-bar">
@@ -53,7 +54,9 @@ const ReadCard = (props) =>{
             <div className="readCards">
                 {searched ?
                     sortOrder == "time" ?
-                        Object.values(filtered).slice().reverse().map((post) => (
+                        Object.values(filtered)
+                        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                        .map((post) => (
                             <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
                         ))
                     :sortOrder == "upvotes-desc" ?
@@ -69,19 +72,21 @@ const ReadCard = (props) =>{
                         ))
                  
                 : sortOrder == "upvotes-desc" ?   
-                    posts.slice().reverse()
+                    posts
                         .sort((a, b) => b.upvotes - a.upvotes)
                         .map((post) => (
                         <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
                     ))   
                 : sortOrder == "upvotes-asc" ?   
-                    posts.slice().reverse()
+                    posts
                         .sort((a, b) => a.upvotes - b.upvotes)
                         .map((post) => (
                         <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
                     ))            
                 :  posts && posts.length > 0 ?
-                        posts.slice().reverse().map((post) => (
+                        posts
+                        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                        .map((post) => (
                             <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
                         ))
                     : <h2>{'No posts yet 😞'}</h2>
