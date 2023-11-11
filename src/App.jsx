@@ -5,14 +5,21 @@ import { Link } from 'react-router-dom'
 import { supabase } from './client'
 import CreateCard from './assets/pages/CreateCard'
 import EditCard from './assets/pages/EditCard'
-import ReadCard from './assets/pages/ReadCard'
+import HomePage from './assets/pages/HomePage.jsx'
 import Home from './assets/pages/Home.jsx'
 import Info from './assets/pages/Info.jsx'
+import SignUp from './assets/pages/signUp.jsx'
+import Login from './assets/pages/Login.jsx'
 
 function App() {
   const [cards, setCards] = useState([]);
+  const [token, setToken] = useState(false);
+
+  if(token){
+    sessionStorage.setItem('token',JSON.stringify(token))
+  }
+
   useEffect(() => {
-    
     // read all post from table
     const fetchCards = async () => {
       const {data} = await supabase
@@ -25,14 +32,19 @@ function App() {
 
     }
 
-    fetchCards()
+    if(sessionStorage.getItem('token')){
+      let data = JSON.parse(sessionStorage.getItem('token'));
+      setToken(data);
+    }
 
+    fetchCards()
   }, []);
 
+  console.log(token);
   let element = useRoutes([
     {
       path: "/",
-      element:<ReadCard data={cards}/>
+      element:<HomePage data={cards} token={token}/>
     },
     {
       path:"/edit/:id",
@@ -45,6 +57,14 @@ function App() {
     {
       path:"info/:id",
       element: <Info data = {cards}/>
+    },
+    {
+      path:"/signup",
+      element: <SignUp/>
+    },
+    {
+      path:"/login",
+      element:<Login setToken={setToken}/>
     }
   ]);
   return (
@@ -54,6 +74,7 @@ function App() {
       <div className="header">
         <Link to="/"><button className = "header-button">Home</button></Link>
         <Link to="/create"><button className="header-button"> Create </button></Link>
+        <Link to="/signup"><button>Sign Up</button></Link>
       </div>
         {element}
     </div>

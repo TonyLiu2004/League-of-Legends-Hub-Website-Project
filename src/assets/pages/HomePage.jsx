@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
-import './ReadCard.css';
+import './HomePage.css';
 import banner from '../images/lol-banner.jpg';
 
-const ReadCard = (props) =>{
+const HomePage = ({data, token}) =>{
+    console.log(token.user.user_metadata.full_name);
     const [posts, setPosts] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [searched, setSearched] = useState(false);
     const [filtered, setFiltered] = useState(null);
     const [sortOrder, setSortOrder] = useState("time");
     useEffect(() => {
-        setPosts(props.data);
-        setFiltered(props.data);
-    }, [props]);
+        setPosts(data);
+        setFiltered(data);
+    }, [data]);
 
 
     const handleSearch = async (e) =>{
         setSearched(true);
         if(e != ""){
             const f = Object.fromEntries(
-                Object.entries(props.data).filter(([, item]) =>
+                Object.entries(data).filter(([, item]) =>
                  item.title.toLowerCase().includes(searchText.toLowerCase())
               )
             );
@@ -32,7 +33,6 @@ const ReadCard = (props) =>{
         console.log(sortOrder);
     }
     
-    //SORT BY TIME NOT WORKING!!!!!!!
     return (
         <div>
             <div className = "title-bar">
@@ -106,4 +106,4 @@ const ReadCard = (props) =>{
     )
 }
 
-export default ReadCard;
+export default HomePage;
