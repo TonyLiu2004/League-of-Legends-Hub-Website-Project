@@ -6,12 +6,11 @@ import "./info.css";
 
 const Info = ({ data }) => {
     const {id} = useParams();
-    const info = data.find(item => item.id.toString() === id);
+    let info = data.find(item => item.id.toString() === id);
     const [upvotes, setUpvotes] = useState(0);
     const [userComment, setUserComment] = useState('');
-    const [displayComments, setDisplayComments] = useState(info.comments);
+    const [displayComments, setDisplayComments] = useState(info.comments || []);
 
-    console.log(info);
     const fetchUpvotes = async () => {
         const { data, error } = await supabase
           .from('LOL Posts')
@@ -31,6 +30,7 @@ const Info = ({ data }) => {
         fetchUpvotes();
     },[data.upvotes]);
 
+
     const handleCommentChange = (e) => {
         setUserComment(e.target.value);
     }
@@ -44,8 +44,7 @@ const Info = ({ data }) => {
         
         let updatedComments = [...displayComments];
         updatedComments.push(commentObject);
-        console.log(updatedComments);
-
+        
         const {error } = await supabase
             .from('LOL Posts')
             .update({ comments: updatedComments})
@@ -53,6 +52,7 @@ const Info = ({ data }) => {
 
         if(!error){
             setDisplayComments(updatedComments);
+            info.comments = updatedComments;
         }
     };
 
@@ -101,7 +101,7 @@ const Info = ({ data }) => {
 
                 <div className = "comment-section">
                     {
-                        info.comments == null ?
+                        info.comments === null ?
                             <p>No Comments</p>
                         : displayComments.slice().reverse().map((c, index) => (
                             <div key={index} className = "each-comment">

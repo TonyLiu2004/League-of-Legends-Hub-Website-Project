@@ -6,9 +6,8 @@ import { supabase } from './client'
 import CreateCard from './assets/pages/CreateCard'
 import EditCard from './assets/pages/EditCard'
 import HomePage from './assets/pages/HomePage.jsx'
-import Home from './assets/pages/Home.jsx'
 import Info from './assets/pages/Info.jsx'
-import SignUp from './assets/pages/signUp.jsx'
+import SignUp from './assets/pages/SignUp.jsx'
 import Login from './assets/pages/Login.jsx'
 
 function App() {

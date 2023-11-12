@@ -4,7 +4,6 @@ import './HomePage.css';
 import banner from '../images/lol-banner.jpg';
 
 const HomePage = ({data, token}) =>{
-    console.log(token.user.user_metadata.full_name);
     const [posts, setPosts] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [searched, setSearched] = useState(false);
