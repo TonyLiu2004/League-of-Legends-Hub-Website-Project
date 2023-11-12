@@ -9,6 +9,14 @@ const HomePage = ({data, token}) =>{
     const [searched, setSearched] = useState(false);
     const [filtered, setFiltered] = useState(null);
     const [sortOrder, setSortOrder] = useState("time");
+    const [userID, setUserID] = useState("");
+
+    //console.log(data);
+    useEffect(() => {
+        if(token) setUserID(token.user.id);
+        else setUserID("");
+    }, [token])
+
     useEffect(() => {
         setPosts(data);
         setFiltered(data);
@@ -59,44 +67,44 @@ const HomePage = ({data, token}) =>{
                     <button id = "searchButton" onClick = {handleSearch}>Search</button>
                 </div>
             </div>
-
+                
             <div className="readCards">
                 {searched ?
                     sortOrder == "time" ?
                         Object.values(filtered)
                         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
                         ))
                     :sortOrder == "upvotes-desc" ?
                         Object.values(filtered)
                         .sort((a, b) => b.upvotes - a.upvotes)
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
                         ))
                     :   Object.values(filtered)
                         .sort((a, b) => a.upvotes - b.upvotes)
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
                         ))
                  
                 : sortOrder == "upvotes-desc" ?   
                     posts
                         .sort((a, b) => b.upvotes - a.upvotes)
                         .map((post) => (
-                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
                     ))   
                 : sortOrder == "upvotes-asc" ?   
                     posts
                         .sort((a, b) => a.upvotes - b.upvotes)
                         .map((post) => (
-                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
                     ))            
                 :  posts && posts.length > 0 ?
                         posts
                         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
                         ))
                     : <h2>{'No posts yet 😞'}</h2>
                 }

@@ -22,10 +22,21 @@
   left:0;
   width: 100%;
   z-index: 100;
+  display:flex;
+  justify-content:center;
 }
 
 .header-button{
   margin-right:10px;
   margin-left:10px;
   background-color: #2f2f2f;
+}
+
+.login-button{
+  background-color: red;
+  color:black;
+}
+
+.logout-button{
+  margin-left:10px;
 }

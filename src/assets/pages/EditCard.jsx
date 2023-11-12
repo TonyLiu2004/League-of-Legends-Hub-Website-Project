@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { supabase } from '../../client.jsx';
 import { useParams } from 'react-router-dom';
+import "./EditCard.css"
+
 const EditCard = ({data}) => {
     const {id} = useParams();
     const [card, setCard] = useState({id: null, title: "", description: "", image: "", upvotes: 0});
@@ -47,21 +49,20 @@ const EditCard = ({data}) => {
 
     return(
         <div>
-            <form>
-                <label>Title</label> <br />
-                <input type="text" id="title" name="title" value={card.title} onChange={handleChange}/><br />
+            <form className = "edit-form">
+                <input placeholder="Title" type="text" id="title" name="title" value={card.title} onChange={handleChange}/><br />
                 <br/>
 
-                <label>Description</label><br />
-                <textarea className="resizable-input" type="text" id="description" name="description" value={card.description} onChange={handleChange} rows="4" cols = "20"/><br />
+                <textarea className="resizable-input" placeholder="Description (optional)" type="text" id="description" name="description" value={card.description} onChange={handleChange} rows="4" cols = "20"/><br />
                 <br/>
 
-                <label>Image (optional)</label><br/>
-                <input type = "text" id="image" name = "image" value = {card.image} onChange = {handleChange}/><br/>
+                <input type = "text" placeholder="Image Link (optional)" id="image" name = "image" value = {card.image} onChange = {handleChange}/><br/>
                 <br/>
-                
-                <input style = {{fontSize:"15px", backgroundColor:"grey", padding:"10px", borderRadius:"10px"}} type="submit" value="Update Post" onClick={updateCard}/>
-                <button className="deleteButton" onClick={deletePost}>Delete Post</button>
+
+                <div className="button-container">
+                    <button className="deleteButton" onClick={deletePost}>Delete Post</button>
+                    <button className="edit-submit-button" type="submit" onClick={updateCard}>Update Post</button>
+                </div>
             </form>
         </div>
     )

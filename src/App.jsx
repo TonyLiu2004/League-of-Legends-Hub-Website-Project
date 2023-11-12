@@ -42,10 +42,9 @@ function App() {
   const handleLogOut = () =>{
     sessionStorage.removeItem('token');
     alert("Successfully Logged out");
-    setToken(false);
+    setToken(false);  
   }
 
-  console.log(token);
   let element = useRoutes([
     {
       path: "/",
@@ -57,11 +56,11 @@ function App() {
     },
     {
       path:"/create",
-      element: <CreateCard />
+      element: <CreateCard token={token}/>
     },
     {
       path:"info/:id",
-      element: <Info data = {cards}/>
+      element: <Info data = {cards} token = {token}/>
     },
     {
       path:"/signup",
@@ -79,8 +78,14 @@ function App() {
       <div className="header">
         <Link to="/"><button className = "header-button">Home</button></Link>
         <Link to="/create"><button className="header-button"> Create </button></Link>
-        <Link to="/signup"><button> {token ? token.user.user_metadata.full_name: "Sign Up"}</button></Link>
-        <button onClick={handleLogOut}>Logout</button>
+        {
+          token ? 
+          <button style= {{alignSelf:"flex-end", marginLeft:"auto"}} className = "login-button">{token.user.user_metadata.full_name}</button>
+          :
+          <Link style= {{alignSelf:"flex-end", marginLeft:"auto"}} to="/login"><button className = "login-button">Login</button></Link>
+
+        }
+        <button className = "logout-button" onClick={handleLogOut}>Logout</button>
       </div>
         {element}
     </div>

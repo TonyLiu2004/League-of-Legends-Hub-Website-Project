@@ -4,13 +4,21 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../../client.jsx';
 import "./info.css";
 
-const Info = ({ data }) => {
+const Info = ({data, token}) => {
     const {id} = useParams();
     let info = data.find(item => item.id.toString() === id);
     const [upvotes, setUpvotes] = useState(0);
     const [userComment, setUserComment] = useState('');
     const [displayComments, setDisplayComments] = useState(info.comments || []);
+    const [username, setUsername] = useState("anonymous");
 
+    useEffect(() => {
+        if(token){
+            setUsername(info.username);
+        }else{
+            setUsername("anonymous");
+        }
+    }, [token])
     const fetchUpvotes = async () => {
         const { data, error } = await supabase
           .from('LOL Posts')
@@ -37,7 +45,7 @@ const Info = ({ data }) => {
 
     const handlePostComment = async () => {
         let commentObject = {
-            name: 'anonymous', 
+            name: username, 
             comment: userComment,
             timestamp: new Date().toISOString(), // Current timestamp
         };

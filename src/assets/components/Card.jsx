@@ -7,6 +7,7 @@ const Card = (props) => {
     const [upvotes, setUpvotes] = useState(0);
     const [upvoted, setUpvoted] = useState(false);
     const [timeStamp, setTimeStamp] = useState(0);
+    console.log(props);
 
     const fetchUpvotes = async () => {
         const { data, error } = await supabase
@@ -69,7 +70,7 @@ const Card = (props) => {
         }
     }
 
-    return (
+        return (
         <div className="Card">
             <Link
                 to={`/info/${props.id}`}
@@ -78,11 +79,11 @@ const Card = (props) => {
             <div className = "container">
                 <div>
                     <div className = "post-top">
-                        <h3 className="post-title">Title: {props.title}</h3>
-                        <p className ="timestamp">{timeStamp}</p>
+                        <h3 className="post-title">{props.title}</h3>
+                        <p className ="timestamp">By {props.creatorName} {timeStamp}</p>
                     </div>
                     <div className="description-container">
-                        <h3 className="post-description">Description: {props.description}</h3>
+                        <h3 className="post-description">{props.description}</h3>
                     </div>
                 </div>
                 <div>
@@ -98,7 +99,11 @@ const Card = (props) => {
                     setUpvoted(!upvoted);
                 }}>🔼</button>
                 <h3 className="upvotes">{upvotes} upvotes</h3>
-                <Link className = "link" to={`/edit/${props.id}`}>Edit Post</Link>  
+                {
+                    props.user_id == props.creatorID ? 
+                    <Link className = "link" to={`/edit/${props.id}`}>Edit Post</Link>  
+                    : ""
+                }
             </div>
         </div>
     );

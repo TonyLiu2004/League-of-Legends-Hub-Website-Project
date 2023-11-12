@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, cloneElement } from 'react';
 import { supabase } from '../../client.jsx';
 import "./CreateCard.css";
-const CreateCard = () => {
+const CreateCard = ({token}) => {
     const [card, setCard] = useState({title: "", description: "", image: "", upvotes: 0})
+    const [userName, setUserName] = useState("anonymous");
+    const [userID, setUserID] = useState("");
+    
+    useEffect(() => {
+        if(token){
+            setUserName(token.user.user_metadata.full_name);
+            setUserID(token.user.id);
+        }else{
+            setUserName("anonymous");
+            setUserID("");
+        }
+    },[token])
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -16,36 +28,38 @@ const CreateCard = () => {
 
     const createPost = async (event) => {
         event.preventDefault();
+        const { error } = await supabase
+            .from('LOL Posts')
+            .insert({title: card.title, 
+                     description: card.description, 
+                     image: card.image, 
+                     upvotes: card.upvotes, 
+                     username: userName, 
+                     creatorID: userID})
+            .select()
 
-       const { error } = await supabase
-        .from('LOL Posts')
-        .insert({title: card.title, description: card.description, image: card.image, upvotes: card.upvotes})
-        .select()
-
-        if (error) {
-            console.log(error);
-        }
+            if (error) {
+                console.log(error);
+            }
 
         window.location = "/create";
-
     }
     return(
         <div>
             <h1>Create a New Post</h1>
-            <form>
-                <label >Title</label> <br />
-                <input type="text" id="name" name="title" value ={card.title} onChange={handleChange}/><br />
+            <form className = "create-form">
+                <p style = {{marginBottom:"10px", marginTop:"5px", textAlign:"left", fontSize:"20px"}}>Creating as {userName}</p>
+
+                <input placeholder="Title" type="text" id="title" name="title" value ={card.title} onChange={handleChange}/><br />
                 <br/>
 
-                <label>Description</label><br />
-                <textarea type="text" id="description" name="description" value={card.description} onChange={handleChange} rows="4" cols = "20"/><br />
+                <textarea placeholder="Description (optional)" type="text" id="description" name="description" value={card.description} onChange={handleChange} rows="4" cols = "20"/><br />
                 <br/>
 
-                <label>Image (optional)</label><br/>
-                <input type = "text" id="image" name = "image" value = {card.image} onChange = {handleChange}/><br/>
+                <input placeholder="Image Link (optional)" type = "text" id="image" name = "image" value = {card.image} onChange = {handleChange}/><br/>
                 <br/>
 
-                <input style = {{fontSize: "15px" }} type="submit" value="Create Post" onClick={createPost} />
+                <button style = {{fontSize: "18px", backgroundColor:"black", padding:"6px", borderRadius:"10px", color:"lightgrey"}} type="submit" onClick={createPost}>Create Post</button>
             </form>
         </div>
     )
