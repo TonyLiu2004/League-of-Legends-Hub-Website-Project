@@ -39,6 +39,12 @@ function App() {
     fetchCards()
   }, []);
 
+  const handleLogOut = () =>{
+    sessionStorage.removeItem('token');
+    alert("Successfully Logged out");
+    setToken(false);
+  }
+
   console.log(token);
   let element = useRoutes([
     {
@@ -73,7 +79,8 @@ function App() {
       <div className="header">
         <Link to="/"><button className = "header-button">Home</button></Link>
         <Link to="/create"><button className="header-button"> Create </button></Link>
-        <Link to="/signup"><button>Sign Up</button></Link>
+        <Link to="/signup"><button> {token ? token.user.user_metadata.full_name: "Sign Up"}</button></Link>
+        <button onClick={handleLogOut}>Logout</button>
       </div>
         {element}
     </div>
