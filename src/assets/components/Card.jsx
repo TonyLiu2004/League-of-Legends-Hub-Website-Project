@@ -94,7 +94,7 @@ const Card = (props) => {
             </div>
             </Link>
             <div className = "post-bottom">
-                <button onClick = {(event) => {
+                <button className = "upvote-button" onClick = {(event) => {
                     upvotePost(event);
                     setUpvoted(!upvoted);
                 }}>🔼</button>

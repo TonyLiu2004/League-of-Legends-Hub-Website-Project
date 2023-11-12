@@ -46,6 +46,10 @@
     align-items: center;
 }
 
+.upvote-button{
+    margin-right:10px;
+}
+
 .post-title{
     color:white;
     font-size:25px;
