@@ -8,8 +8,19 @@ const Card = (props) => {
     const [upvoted, setUpvoted] = useState(false);
     const [timeStamp, setTimeStamp] = useState(0);
     const [upvoteImg, setUpvoteImg] = useState("src/assets/images/upvote.png");
-    console.log(props);
+    console.log(props.id);
 
+    useEffect(() => {
+        if(sessionStorage.getItem("Token")){
+
+        }else{
+            const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
+            if(tempToken.upvotedPosts.includes(props.id)){
+                setUpvoted(true);
+                setUpvoteImg("src/assets/images/upvoted.png");
+            }
+        }
+    }, [])
     const fetchUpvotes = async () => {
         const { data, error } = await supabase
           .from('LOL Posts')
@@ -71,11 +82,31 @@ const Card = (props) => {
         }
 
         if(!upvoted){
-            setUpvoteImg("src/assets/images/upvoted.png");
+            setUpvoteImg("src/assets/images/upvoted.png"); //upvoted
+            if(sessionStorage.getItem("Token")){
+                console.log("logged in");
+            }else{
+                const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
+                if(!tempToken.upvotedPosts.includes(props.id)){
+                    tempToken.upvotedPosts = [...tempToken.upvotedPosts, props.id];
+                    sessionStorage.setItem("temp-token",JSON.stringify(tempToken));   
+                }
+            }
         }else{
-            setUpvoteImg("src/assets/images/upvote.png");
+            setUpvoteImg("src/assets/images/upvote.png"); //not upvoted
+            if(sessionStorage.getItem("Token")){
 
-        }
+            }else{
+                const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
+                if(tempToken.upvotedPosts.includes(props.id)){
+                    const removed = tempToken.upvotedPosts.filter((item) => {
+                        return item != props.id
+                    })
+                    tempToken.upvotedPosts = removed;
+                    sessionStorage.setItem("temp-token", JSON.stringify(tempToken));
+                }
+            }
+        } // end else
     }
 
         return (

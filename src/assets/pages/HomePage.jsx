@@ -3,7 +3,7 @@ import Card from '../components/Card';
 import './HomePage.css';
 import banner from '../images/lol-banner.jpg';
 
-const HomePage = ({data, token}) =>{
+const HomePage = ({data, token, tempToken}) =>{
     const [posts, setPosts] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [searched, setSearched] = useState(false);
@@ -74,37 +74,37 @@ const HomePage = ({data, token}) =>{
                         Object.values(filtered)
                         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID} />
                         ))
                     :sortOrder == "upvotes-desc" ?
                         Object.values(filtered)
                         .sort((a, b) => b.upvotes - a.upvotes)
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID} />
                         ))
                     :   Object.values(filtered)
                         .sort((a, b) => a.upvotes - b.upvotes)
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID} />
                         ))
                  
                 : sortOrder == "upvotes-desc" ?   
                     posts
                         .sort((a, b) => b.upvotes - a.upvotes)
                         .map((post) => (
-                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
+                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID} />
                     ))   
                 : sortOrder == "upvotes-asc" ?   
                     posts
                         .sort((a, b) => a.upvotes - b.upvotes)
                         .map((post) => (
-                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
+                        <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID} />
                     ))            
                 :  posts && posts.length > 0 ?
                         posts
                         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                         .map((post) => (
-                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID}/>
+                            <Card id={post.id} title={post.title} description={post.description} image={post.image} upvotes={post.upvotes} created_at = {post.created_at} user_id = {userID} creatorName={post.username} creatorID={post.creatorID} />
                         ))
                     : <h2>{'No posts yet 😞'}</h2>
                 }

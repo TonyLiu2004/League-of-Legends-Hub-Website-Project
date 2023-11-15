@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
+import { v4 as uuid } from "uuid";
 import './App.css'
 import { useRoutes } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -14,11 +15,20 @@ function App() {
   const [cards, setCards] = useState([]);
   const [token, setToken] = useState(false);
 
-  //let uuid = uuid_generate_v4();
-  //console.log(uuid);
-  if(token){
-    sessionStorage.setItem('token',JSON.stringify(token))
-  }
+
+  useEffect(() => {
+    if(token){
+      sessionStorage.setItem('token',JSON.stringify(token))
+    }else{
+      if(!sessionStorage.getItem("temp-token")){
+        const unique_id = {
+          user: uuid(),
+          upvotedPosts: []
+        };
+        sessionStorage.setItem('temp-token',JSON.stringify(unique_id))
+      }
+    }
+  }, [])
 
   useEffect(() => {
     // read all post from table
@@ -50,7 +60,7 @@ function App() {
   let element = useRoutes([
     {
       path: "/",
-      element:<HomePage data={cards} token={token}/>
+      element:<HomePage data={cards} token={token} tempToken = {JSON.parse(sessionStorage.getItem("temp-token"))}/>
     },
     {
       path:"/edit/:id",
