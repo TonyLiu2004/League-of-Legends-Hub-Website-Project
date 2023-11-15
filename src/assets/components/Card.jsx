@@ -7,6 +7,7 @@ const Card = (props) => {
     const [upvotes, setUpvotes] = useState(0);
     const [upvoted, setUpvoted] = useState(false);
     const [timeStamp, setTimeStamp] = useState(0);
+    const [upvoteImg, setUpvoteImg] = useState("src/assets/images/upvote.png");
     console.log(props);
 
     const fetchUpvotes = async () => {
@@ -68,6 +69,13 @@ const Card = (props) => {
             setUpvotes(i);
             setUpvoted(!upvoted);
         }
+
+        if(!upvoted){
+            setUpvoteImg("src/assets/images/upvoted.png");
+        }else{
+            setUpvoteImg("src/assets/images/upvote.png");
+
+        }
     }
 
         return (
@@ -94,10 +102,10 @@ const Card = (props) => {
             </div>
             </Link>
             <div className = "post-bottom">
-                <button className = "upvote-button" onClick = {(event) => {
+                <img className = "upvote-img" src = {upvoteImg} style={{ cursor: 'pointer' }} onClick={(event) => {
                     upvotePost(event);
                     setUpvoted(!upvoted);
-                }}>🔼</button>
+                }}></img>
                 <h3 className="upvotes">{upvotes} upvotes</h3>
                 {
                     props.user_id == props.creatorID ? 

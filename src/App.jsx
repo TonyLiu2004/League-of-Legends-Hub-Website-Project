@@ -14,6 +14,8 @@ function App() {
   const [cards, setCards] = useState([]);
   const [token, setToken] = useState(false);
 
+  //let uuid = uuid_generate_v4();
+  //console.log(uuid);
   if(token){
     sessionStorage.setItem('token',JSON.stringify(token))
   }

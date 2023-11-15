@@ -16,6 +16,9 @@
     text-align: left;
     margin-left:60px;
     margin-right:60px;
+    max-width:800px;
+    max-height:1000px;
+    overflow:hidden;
 }
 
 .info-image{
