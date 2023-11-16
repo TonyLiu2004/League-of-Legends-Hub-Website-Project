@@ -28,12 +28,33 @@ const Login = ({setToken}) => {
 
             if(error) throw error
             console.log(data);
-            //setFormData({ email: "", password: "" });
 
             setToken(data);
+            sessionStorage.setItem("token",JSON.stringify(data));
+            sessionStorage.setItem('upvoted', []);
             navigate('/');
+            location.reload();
         } catch (error) {
             alert(error.message);
+        }
+
+        console.log(JSON.parse(sessionStorage.getItem("token")).user.id);
+        try{
+            const{data, error} = await supabase
+                .from('LOL Account Likes')
+                .select('upvotedPosts')
+                .eq('id', JSON.parse(sessionStorage.getItem("token")).user.id)
+            if(error) throw error
+
+            console.log(data);
+        } catch {
+            const{error} = await supabase
+            .from('LOL Account Likes')
+            .insert({
+                id: JSON.parse(sessionStorage.getItem("token")).user.id,
+                upvotedPosts: []
+            })
+            if(error) throw error
         }
     }
     return(

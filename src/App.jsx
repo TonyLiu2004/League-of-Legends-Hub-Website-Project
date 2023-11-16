@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     if(token){
-      sessionStorage.setItem('token',JSON.stringify(token))
+      sessionStorage.setItem('token',JSON.stringify(token));
     }else{
       if(!sessionStorage.getItem("temp-token")){
         const unique_id = {
@@ -53,8 +53,10 @@ function App() {
 
   const handleLogOut = () =>{
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('upvoted');
     alert("Successfully Logged out");
     setToken(false);  
+    location.reload();
   }
 
   let element = useRoutes([

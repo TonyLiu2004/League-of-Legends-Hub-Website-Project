@@ -8,11 +8,27 @@ const Card = (props) => {
     const [upvoted, setUpvoted] = useState(false);
     const [timeStamp, setTimeStamp] = useState(0);
     const [upvoteImg, setUpvoteImg] = useState("src/assets/images/upvote.png");
-    console.log(props.id);
 
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const {data, error} = await supabase
+    //         .from('LOL Account Likes')
+    //         .select('upvotedPosts')
+    //         .eq('id', JSON.parse(sessionStorage.getItem("token")).user.id)
+            
+    //         if(error) throw error;
+    //         //console.log(data);
+    //         setTokenUpvoted({data}.data[0].upvotedPosts);
+    //     }
+    //     getData();
+    // }, [])
+    
     useEffect(() => {
-        if(sessionStorage.getItem("Token")){
-
+        if(sessionStorage.getItem("token")){
+            if(sessionStorage.getItem("upvoted").includes(props.id)){
+                setUpvoted(true);
+                setUpvoteImg("src/assets/images/upvoted.png");
+            }
         }else{
             const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
             if(tempToken.upvotedPosts.includes(props.id)){
@@ -20,7 +36,8 @@ const Card = (props) => {
                 setUpvoteImg("src/assets/images/upvoted.png");
             }
         }
-    }, [])
+    }, [sessionStorage.getItem("upvoted")])
+
     const fetchUpvotes = async () => {
         const { data, error } = await supabase
           .from('LOL Posts')
@@ -60,6 +77,25 @@ const Card = (props) => {
         setTimeStamp(formatRelativeTime(props.created_at));
     }, [props.upvotes])
 
+
+    const addLike = async () => {
+        const {error} = await supabase   
+        .from('LOL Account Likes')
+        .update({upvotedPosts : JSON.parse(sessionStorage.getItem('upvoted'))})
+        .eq('id', JSON.parse(sessionStorage.getItem("token")).user.id)
+
+        if(error) throw error;
+    }
+
+    const removeLike = async () => {
+        const {error} = await supabase
+        .from('LOL Account Likes')
+        .update({upvotedPosts : JSON.parse(sessionStorage.getItem('upvoted'))})
+        .eq('id', JSON.parse(sessionStorage.getItem("token")).user.id)
+
+        if(error) throw error;
+    }
+
     const upvotePost = async (event) => {
         event.preventDefault();
         let i = upvotes;
@@ -83,8 +119,12 @@ const Card = (props) => {
 
         if(!upvoted){
             setUpvoteImg("src/assets/images/upvoted.png"); //upvoted
-            if(sessionStorage.getItem("Token")){
-                console.log("logged in");
+            const newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
+            newUpvoted.push(props.id);
+            sessionStorage.setItem('upvoted', JSON.stringify(newUpvoted));
+
+            if(sessionStorage.getItem("token")){
+                addLike();
             }else{
                 const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
                 if(!tempToken.upvotedPosts.includes(props.id)){
@@ -94,9 +134,16 @@ const Card = (props) => {
             }
         }else{
             setUpvoteImg("src/assets/images/upvote.png"); //not upvoted
-            if(sessionStorage.getItem("Token")){
+            let newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
+            newUpvoted = newUpvoted.filter((item) => {
+                return item != props.id
+            })
+            sessionStorage.setItem('upvoted', JSON.stringify(newUpvoted));
+            console.log(newUpvoted);
 
-            }else{
+            if(sessionStorage.getItem("token")){
+                removeLike();
+            }else{  
                 const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
                 if(tempToken.upvotedPosts.includes(props.id)){
                     const removed = tempToken.upvotedPosts.filter((item) => {

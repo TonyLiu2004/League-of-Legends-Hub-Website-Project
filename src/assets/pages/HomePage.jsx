@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import './HomePage.css';
 import banner from '../images/lol-banner.jpg';
+import { supabase } from '../../client';
 
-const HomePage = ({data, token, tempToken}) =>{
+const HomePage = ({data, token}) =>{
     const [posts, setPosts] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [searched, setSearched] = useState(false);
@@ -12,8 +13,21 @@ const HomePage = ({data, token, tempToken}) =>{
     const [userID, setUserID] = useState("");
 
     //console.log(data);
+
+    const getUpvotedArray = async () =>{
+        const {data, error} = await supabase
+        .from('LOL Account Likes')
+        .select('upvotedPosts')
+        .eq('id', JSON.parse(sessionStorage.getItem("token")).user.id)
+
+        if(error) throw error;
+        sessionStorage.setItem('upvoted', JSON.stringify(data[0].upvotedPosts));
+    }
     useEffect(() => {
-        if(token) setUserID(token.user.id);
+        if(token) {
+            setUserID(token.user.id);
+            getUpvotedArray();
+        }
         else setUserID("");
     }, [token])
 
