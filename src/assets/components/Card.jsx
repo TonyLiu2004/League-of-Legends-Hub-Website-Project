@@ -119,13 +119,13 @@ const Card = (props) => {
 
         if(!upvoted){
             setUpvoteImg("src/assets/images/upvoted.png"); //upvoted
-            const newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
-            newUpvoted.push(props.id);
-            sessionStorage.setItem('upvoted', JSON.stringify(newUpvoted));
 
-            if(sessionStorage.getItem("token")){
+            if(sessionStorage.getItem("token")){ //logged in
+                const newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
+                newUpvoted.push(props.id);
+                sessionStorage.setItem('upvoted', JSON.stringify(newUpvoted));
                 addLike();
-            }else{
+            }else{ //not logged in
                 const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
                 if(!tempToken.upvotedPosts.includes(props.id)){
                     tempToken.upvotedPosts = [...tempToken.upvotedPosts, props.id];
@@ -134,14 +134,13 @@ const Card = (props) => {
             }
         }else{
             setUpvoteImg("src/assets/images/upvote.png"); //not upvoted
-            let newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
-            newUpvoted = newUpvoted.filter((item) => {
-                return item != props.id
-            })
-            sessionStorage.setItem('upvoted', JSON.stringify(newUpvoted));
-            console.log(newUpvoted);
 
             if(sessionStorage.getItem("token")){
+                let newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
+                newUpvoted = newUpvoted.filter((item) => {
+                    return item != props.id
+                })
+                sessionStorage.setItem('upvoted', JSON.stringify(newUpvoted));
                 removeLike();
             }else{  
                 const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));

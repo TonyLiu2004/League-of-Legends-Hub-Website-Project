@@ -25,7 +25,7 @@ function App() {
           user: uuid(),
           upvotedPosts: []
         };
-        sessionStorage.setItem('temp-token',JSON.stringify(unique_id))
+        sessionStorage.setItem('temp-token',JSON.stringify(unique_id));
       }
     }
   }, [])
