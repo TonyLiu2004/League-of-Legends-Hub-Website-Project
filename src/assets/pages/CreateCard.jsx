@@ -43,7 +43,7 @@ const CreateCard = ({token}) => {
             if (error) {
                 console.log(error);
             }
-            window.location = "/create";
+            //window.location = "/create";
     }
     return(
         <div>
