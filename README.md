@@ -47,7 +47,7 @@ Part 2: https://i.imgur.com/Q1f9YOX.mp4
 <img src='https://i.imgur.com/RW7I6Ld.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  Imgur and Windows Xbox game bar
+GIF created with Imgur and Windows Xbox game bar
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
@@ -56,7 +56,9 @@ GIF created with ...  Imgur and Windows Xbox game bar
 ## Notes
 
 Describe any challenges encountered while building the app.
-
+- Getting upvotes to persist
+- Creating temporary User IDs and implementing them
+  
 ## License
 
     Copyright [2023] [Tony Liu]
