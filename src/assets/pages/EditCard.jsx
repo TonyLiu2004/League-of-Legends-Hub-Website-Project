@@ -44,7 +44,7 @@ const EditCard = ({data}) => {
         .delete()
         .eq('id', id); 
     
-        window.location = "http://localhost:5173/";
+        window.location = "/";
     }
 
     return(

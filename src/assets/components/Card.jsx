@@ -12,20 +12,6 @@ const Card = (props) => {
     const [upvoteImg, setUpvoteImg] = useState(upvoteIMG);
     const [userID, setUserID] = useState(false);
 
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const {data, error} = await supabase
-    //         .from('LOL Account Likes')
-    //         .select('upvotedPosts')
-    //         .eq('id', JSON.parse(sessionStorage.getItem("token")).user.id)
-            
-    //         if(error) throw error;
-    //         //console.log(data);
-    //         setTokenUpvoted({data}.data[0].upvotedPosts);
-    //     }
-    //     getData();
-    // }, [])
-    
     useEffect(() => {
         if(sessionStorage.getItem("token")){
             setUserID(props.user_id);
