@@ -8,8 +8,7 @@ const Login = ({setToken}) => {
         email: "", password: ""
     })
 
-    console.log(formData);
-    const handleChange = (e) =>{
+        const handleChange = (e) =>{
         setFormData((prevData) => {
             return{
                 ...prevData, [e.target.name] : e.target.value
@@ -32,30 +31,35 @@ const Login = ({setToken}) => {
             setToken(data);
             sessionStorage.setItem("token",JSON.stringify(data));
             sessionStorage.setItem('upvoted', []);
-            navigate('/');
-            location.reload();
         } catch (error) {
             alert(error.message);
         }
 
-        console.log(JSON.parse(sessionStorage.getItem("token")).user.id);
         try{
             const{data, error} = await supabase
                 .from('LOL Account Likes')
-                .select('upvotedPosts')
+                .select('id')
                 .eq('id', JSON.parse(sessionStorage.getItem("token")).user.id)
             if(error) throw error
 
+            console.log(JSON.parse(sessionStorage.getItem("token")).user.id);
             console.log(data);
-        } catch {
-            const{error} = await supabase
-            .from('LOL Account Likes')
-            .insert({
-                id: JSON.parse(sessionStorage.getItem("token")).user.id,
-                upvotedPosts: []
-            })
-            if(error) throw error
+            if(Object.keys(data).length === 0){
+                const{error} = await supabase
+                .from('LOL Account Likes')
+                .insert({
+                    id: JSON.parse(sessionStorage.getItem("token")).user.id,
+                    upvotedPosts: []
+                })
+                if(error) throw error;
+            }
+        } 
+        catch (error){
+            alert(error);
         }
+
+        navigate('/');
+        location.reload();
     }
     return(
         <div>

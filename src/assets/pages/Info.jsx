@@ -13,12 +13,13 @@ const Info = ({data, token, tempToken}) => {
     const [username, setUsername] = useState("anonymous");
     const [userID, setUserID] = useState("");
 
-    console.log(token);
     useEffect(() => {
         if(token){
             setUsername(JSON.parse(sessionStorage.getItem("token")).user.user_metadata.full_name);
+            setUserID(JSON.parse(sessionStorage.getItem("token")).user.id);
         }else{
             setUsername("anonymous" + JSON.stringify(JSON.parse(sessionStorage.getItem("temp-token")).user).slice(1, 8)); // anonymous + first 8 letter of token
+            setUserID(JSON.parse(sessionStorage.getItem('temp-token')).user);
         }
     }, [token])
     const fetchUpvotes = async () => {
@@ -99,7 +100,11 @@ const Info = ({data, token, tempToken}) => {
                     )}
                     <div className = "post-bottom">
                         <h3 className="info-upvotes">{upvotes} upvotes</h3>
-                        <Link className = "link" to={`/edit/${info.id}`}>Edit Post</Link>
+                        {
+                            userID == info.creatorID ? 
+                            <Link className = "link" to={`/edit/${info.id}`}>Edit Post</Link>
+                            : ""
+                        }
                     </div>
                 </div> <hr className = "info-horizontal-line"/> <br/>
 

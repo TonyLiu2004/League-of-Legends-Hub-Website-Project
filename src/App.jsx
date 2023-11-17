@@ -57,7 +57,8 @@ function App() {
     sessionStorage.removeItem('upvoted');
     alert("Successfully Logged out");
     setToken(false);  
-    navigate('/')
+    navigate('/');
+    location.reload();
   }
 
   let element = useRoutes([
