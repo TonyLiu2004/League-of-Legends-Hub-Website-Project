@@ -46,7 +46,7 @@ const CreateCard = ({token}) => {
                 console.log(error);
             }
             
-            navigate('/create');
+            navigate('/');
             location.reload();
     }
     return(
