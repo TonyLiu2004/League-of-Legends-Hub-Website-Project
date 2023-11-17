@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { supabase } from '../../client.jsx';
+import {useNavigate  } from 'react-router-dom'
 import "./CreateCard.css";
 
 
@@ -7,6 +8,7 @@ const CreateCard = ({token}) => {
     const [card, setCard] = useState({title: "", description: "", image: "", upvotes: 0})
     const [userName, setUserName] = useState("anonymous");
     const [userID, setUserID] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(token){
@@ -44,7 +46,7 @@ const CreateCard = ({token}) => {
                 console.log(error);
             }
             
-            window.location = "/";
+            navigate('/');
             location.reload();
     }
     return(
