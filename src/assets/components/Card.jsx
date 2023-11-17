@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../client.jsx';
-import './Card.css'
+import './Card.css';
+import upvoteIMG from '../images/upvote.png';
+import upvotedIMG from '../images/upvoted.png';
 
 const Card = (props) => {
     const [upvotes, setUpvotes] = useState(0);
     const [upvoted, setUpvoted] = useState(false);
     const [timeStamp, setTimeStamp] = useState(0);
-    const [upvoteImg, setUpvoteImg] = useState("src/assets/images/upvote.png");
+    const [upvoteImg, setUpvoteImg] = useState(upvoteIMG);
 
     // useEffect(() => {
     //     const getData = async () => {
@@ -27,13 +29,13 @@ const Card = (props) => {
         if(sessionStorage.getItem("token")){
             if(sessionStorage.getItem("upvoted").includes(props.id)){
                 setUpvoted(true);
-                setUpvoteImg("src/assets/images/upvoted.png");
+                setUpvoteImg(upvotedIMG);
             }
         }else{
             const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
             if(tempToken.upvotedPosts.includes(props.id)){
                 setUpvoted(true);
-                setUpvoteImg("src/assets/images/upvoted.png");
+                setUpvoteImg(upvotedIMG);
             }
         }
     }, [sessionStorage.getItem("upvoted")])
@@ -118,7 +120,7 @@ const Card = (props) => {
         }
 
         if(!upvoted){
-            setUpvoteImg("src/assets/images/upvoted.png"); //upvoted
+            setUpvoteImg(upvotedIMG); //upvoted
 
             if(sessionStorage.getItem("token")){ //logged in
                 const newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
@@ -133,7 +135,7 @@ const Card = (props) => {
                 }
             }
         }else{
-            setUpvoteImg("src/assets/images/upvote.png"); //not upvoted
+            setUpvoteImg(upvoteIMG); //not upvoted
 
             if(sessionStorage.getItem("token")){
                 let newUpvoted = JSON.parse(sessionStorage.getItem('upvoted'));
