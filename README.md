@@ -42,11 +42,12 @@ The following **additional** features are implemented:
 - Users can only edit their own posts by logging in. If they are not logged in, they are assigned a random ID that will be used for their posts. This random ID is saved locally, so closing the tab will delete the ID and another will be assigned.
 
 Here's a walkthrough of implemented user stories:
-
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+Part 1: https://i.imgur.com/RW7I6Ld.mp4
+Part 2: https://i.imgur.com/Q1f9YOX.mp4
+<img src='https://i.imgur.com/RW7I6Ld.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  
+GIF created with ...  Imgur and Windows Xbox game bar
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
