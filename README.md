@@ -25,7 +25,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [ ] Users can only edit and deleted posts or delete comments by entering the secret key, which is set by the user during post creation
-- [ ] Upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them.
+- [x] Upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them.
 - [ ] Users can repost a previous post by referencing its post ID. On the post page of the new post, the referenced post is displayed and linked, creating a thread
 - [ ] Users can customize the interface of the web app
 - [ ] Users can share and view web videos
@@ -35,9 +35,11 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you added to improve the site's functionality!
+* [x] List anything else that you added to improve the site's functionality!
 
-## Video Walkthrough
+- Users can login via email
+- Upvotes are saved and will persist
+- Users can only edit their own posts by logging in. If they are not logged in, they are assigned a random ID that will be used for their posts. This random ID is saved locally, so closing the tab will delete the ID and another will be assigned.
 
 Here's a walkthrough of implemented user stories:
 
