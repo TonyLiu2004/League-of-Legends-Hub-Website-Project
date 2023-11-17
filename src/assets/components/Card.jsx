@@ -10,6 +10,7 @@ const Card = (props) => {
     const [upvoted, setUpvoted] = useState(false);
     const [timeStamp, setTimeStamp] = useState(0);
     const [upvoteImg, setUpvoteImg] = useState(upvoteIMG);
+    const [userID, setUserID] = useState(false);
 
     // useEffect(() => {
     //     const getData = async () => {
@@ -27,12 +28,14 @@ const Card = (props) => {
     
     useEffect(() => {
         if(sessionStorage.getItem("token")){
+            setUserID(props.user_id);
             if(sessionStorage.getItem("upvoted").includes(props.id)){
                 setUpvoted(true);
                 setUpvoteImg(upvotedIMG);
             }
         }else{
             const tempToken = JSON.parse(sessionStorage.getItem("temp-token"));
+            setUserID(JSON.parse(sessionStorage.getItem("temp-token")).user);
             if(tempToken.upvotedPosts.includes(props.id)){
                 setUpvoted(true);
                 setUpvoteImg(upvotedIMG);
@@ -156,7 +159,8 @@ const Card = (props) => {
             }
         } // end else
     }
-
+        console.log(userID);
+        console.log(props.creatorID);
         return (
         <div className="Card">
             <Link
@@ -187,7 +191,7 @@ const Card = (props) => {
                 }}></img>
                 <h3 className="upvotes">{upvotes} upvotes</h3>
                 {
-                    props.user_id == props.creatorID ? 
+                    userID == props.creatorID ? 
                     <Link className = "link" to={`/edit/${props.id}`}>Edit Post</Link>  
                     : ""
                 }

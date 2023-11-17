@@ -28,7 +28,7 @@
 }
 
 .post-image{
-    max-width: 500px;
+    max-width: 400px;
     max-height: 320px;
     margin-left:50px;
     padding-top:30px;
@@ -51,13 +51,16 @@
     margin-right:10px;
 }
 
-.post-title{
-    color:white;
-    font-size:25px;
-    margin-right:15px;
-    max-width:500px;
-    overflow:hidden;
-    max-height:120px;
+.post-title {
+    color: white;
+    font-size: 25px;
+    margin-right: 15px;
+    max-width: 450px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-height: 120px;
 }
 
 .timestamp{

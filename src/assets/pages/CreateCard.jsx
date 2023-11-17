@@ -11,8 +11,8 @@ const CreateCard = ({token}) => {
             setUserName(token.user.user_metadata.full_name);
             setUserID(token.user.id);
         }else{
-            setUserName("anonymous");
-            setUserID("");
+            setUserName("anonymous" + JSON.stringify(JSON.parse(sessionStorage.getItem("temp-token")).user).slice(1, 8)); // anonymous + first 8 letter of token
+            setUserID(JSON.parse(sessionStorage.getItem("temp-token")).user);
         }
     },[token])
 

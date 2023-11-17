@@ -4,19 +4,21 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../../client.jsx';
 import "./info.css";
 
-const Info = ({data, token}) => {
+const Info = ({data, token, tempToken}) => {
     const {id} = useParams();
     let info = data.find(item => item.id.toString() === id);
     const [upvotes, setUpvotes] = useState(0);
     const [userComment, setUserComment] = useState('');
     const [displayComments, setDisplayComments] = useState(info.comments || []);
     const [username, setUsername] = useState("anonymous");
+    const [userID, setUserID] = useState("");
 
+    console.log(token);
     useEffect(() => {
         if(token){
-            setUsername(info.username);
+            setUsername(JSON.parse(sessionStorage.getItem("token")).user.user_metadata.full_name);
         }else{
-            setUsername("anonymous");
+            setUsername("anonymous" + JSON.stringify(JSON.parse(sessionStorage.getItem("temp-token")).user).slice(1, 8)); // anonymous + first 8 letter of token
         }
     }, [token])
     const fetchUpvotes = async () => {
@@ -86,11 +88,11 @@ const Info = ({data, token}) => {
 
     return (
         <div>
-            <h3 className="info-title">Title: {info.title}</h3>
+            <h3 className="info-title">{info.title}</h3>
             <div className = "info-container">
                 <div>
                     <div className="description-container">
-                        <h3 className="info-description">DESCRIPTION: {info.description}</h3>
+                        <h3 className="info-description">{info.description}</h3>
                     </div>
                     {info.image !== "" && (
                         <img className = "info-image" src={info.image} alt="Your Image" />

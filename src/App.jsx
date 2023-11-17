@@ -2,7 +2,7 @@ import { useState, useEffect} from 'react'
 import { v4 as uuid } from "uuid";
 import './App.css'
 import { useRoutes } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate  } from 'react-router-dom'
 import { supabase } from './client'
 import CreateCard from './assets/pages/CreateCard'
 import EditCard from './assets/pages/EditCard'
@@ -14,6 +14,7 @@ import Login from './assets/pages/Login.jsx'
 function App() {
   const [cards, setCards] = useState([]);
   const [token, setToken] = useState(false);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -56,7 +57,7 @@ function App() {
     sessionStorage.removeItem('upvoted');
     alert("Successfully Logged out");
     setToken(false);  
-    location.reload();
+    navigate('/')
   }
 
   let element = useRoutes([
@@ -74,7 +75,7 @@ function App() {
     },
     {
       path:"info/:id",
-      element: <Info data = {cards} token = {token}/>
+      element: <Info data = {cards} token = {token} tempToken = {JSON.parse(sessionStorage.getItem("temp-token"))}/>
     },
     {
       path:"/signup",
